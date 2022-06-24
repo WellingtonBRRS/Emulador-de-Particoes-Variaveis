@@ -1,21 +1,21 @@
 //Created by: WellingtonBRRS - 06/2022
 
 /*
-	Na utilização do programa defina primeiramente o tamanho da memória total do sistema.
+	Na utilizaÃ§Ã£o do programa defina primeiramente o tamanho da memÃ³ria total do sistema.
 	
-	Posteriormente escolha o tipo do seu gerenciamento (First, Best, Best, Worst).
+	Posteriormente escolha o tipo do seu gerenciamento (First, Next, Best, Worst).
 	
-	Opções do programa:
+	OpÃ§Ãµes do programa:
 		1 - Alocar Processos.
 		2 - Desalocar Processos.
-		3 - Ver a situação geral da memória.
+		3 - Ver a situaÃ§Ã£o geral da memÃ³ria.
 
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 
-void compactar(int* part,int tamPart){//a logica de compactacao utilizada é: trazes todos os valores para o mais perto possivel do começo, deixando o final limpo
+void compactar(int* part,int tamPart){//a logica de compactacao utilizada Ã©: trazes todos os valores para o mais perto possivel do comeÃ§o, deixando o final limpo
 	int cont=0;
 	for(int i=0;i<tamPart;i++){//testa se o vetor esta vazio
 		if(part[i]!=0){
@@ -35,7 +35,7 @@ void compactar(int* part,int tamPart){//a logica de compactacao utilizada é: tra
 	}
 }
 
-void alocarMemoria(int* part,int tamPart, int x,int* processo,int tpPos,int* contNext,bool firstORrecurs){//o firstORrecurs é usado para usar a funcao como recursiva, porem, manter ela sem entrar em loop
+void alocarMemoria(int* part,int tamPart, int x,int* processo,int tpPos,int* contNext,bool firstORrecurs){//o firstORrecurs Ã© usado para usar a funcao como recursiva, porem, manter ela sem entrar em loop
 	int aux=0,pos=0,cont=0,alrAloc=0,alocou=false;
 	int posBest,posAux,tamPos=tamPart+1;
 	printf("\nAlocando %d bytes na Memoria...\n",x);
@@ -71,23 +71,23 @@ void alocarMemoria(int* part,int tamPart, int x,int* processo,int tpPos,int* con
 			}
 			break;
 		case 2:
-			for(int i=*contNext;i<tamPart;i++){//Primeiro é testado se ha lugar livre a partir da ultima alocacao ate o final do vetor
+			for(int i=*contNext;i<tamPart;i++){//Primeiro Ã© testado se ha lugar livre a partir da ultima alocacao ate o final do vetor
 				if(part[i]==0 && aux==0){//se a memoria estiver livre e nao teve memoria anteriormente encontrada no do modo livre
 					aux=1;//o auxiliar opera informando que ele ja encontrou uma casa livre, e agora esta em busca das posteriores
 					pos=i;//o pos recebe a primeira posicao livre encontrada
-					cont++;//e o cont é incrementado para comparar o tamanho necessario com o tamanho livre necessario
+					cont++;//e o cont Ã© incrementado para comparar o tamanho necessario com o tamanho livre necessario
 				}else if(part[i]==0 && aux==1){//caso esteja livre mas havia memoria livre anteriormente
-					cont++;//o cont é incrementado para comparar o tamanho necessario com o tamanho livre necessario
+					cont++;//o cont Ã© incrementado para comparar o tamanho necessario com o tamanho livre necessario
 				}else if(part[i]!=0){//se a particao nao estiver livre as variaveis auxiliares sao zeradas
 					aux=0;
 					pos=0;
 					cont=0;
 				}
 				if(cont==x){//se o cont atingiu o tamanho requerido pela alocacao
-					*processo+=1;//o numero do processo é incrementado
+					*processo+=1;//o numero do processo Ã© incrementado
 					alrAloc=1;
 					alocou=true;
-					for(int j=0;j<x;j++){//é alocado todos os valores com seu respectivo processo
+					for(int j=0;j<x;j++){//Ã© alocado todos os valores com seu respectivo processo
 						part[pos]=*processo;
 						pos++;
 					}
@@ -95,7 +95,7 @@ void alocarMemoria(int* part,int tamPart, int x,int* processo,int tpPos,int* con
 					break;
 				}
 			}
-			if(alrAloc==0 && *contNext!=0){//Em segundo é testado se ha lugar livre no vetor a partir do comeco ate a ultima alocacao
+			if(alrAloc==0 && *contNext!=0){//Em segundo Ã© testado se ha lugar livre no vetor a partir do comeco ate a ultima alocacao
 				for(int i=0;i<*contNext+1;i++){
 					if(part[i]==0 && aux==0){
 						aux=1;
@@ -135,7 +135,7 @@ void alocarMemoria(int* part,int tamPart, int x,int* processo,int tpPos,int* con
 				}else if(part[i]==0 && aux==1){//se a posicao esta livre e anteriormente estava livre
 					cont++;
 				}
-				if(i+1>=tamPart && aux==1){//se a proxima posicao é o final do vetor e anteriormente estava livre
+				if(i+1>=tamPart && aux==1){//se a proxima posicao Ã© o final do vetor e anteriormente estava livre
 					if(cont<tamPos && cont>=x){
 						tamPos=cont;
 						posBest=pos;
@@ -159,7 +159,7 @@ void alocarMemoria(int* part,int tamPart, int x,int* processo,int tpPos,int* con
 				*processo+=1;
 				alocou=true;
 				for(int j=0;j<x;j++){
-					part[posBest]=*processo;//é inserido os processos no vetor seguindo a posicao mais eficiente
+					part[posBest]=*processo;//Ã© inserido os processos no vetor seguindo a posicao mais eficiente
 					posBest++;
 				}
 			}else{//se o posBest continuar como 0 (assim como foi instanciado) e a primeira posicao nao for nula, entao significa que nao foi encontrado nenhuma posicao livre
@@ -180,7 +180,7 @@ void alocarMemoria(int* part,int tamPart, int x,int* processo,int tpPos,int* con
 				}else if(part[i]==0 && aux==1){//se a posicao esta livre e anteriormente estava livre
 					cont++;
 				}
-				if(i+1>=tamPart && aux==1){//se a proxima posicao é o final do vetor e anteriormente estava livre
+				if(i+1>=tamPart && aux==1){//se a proxima posicao Ã© o final do vetor e anteriormente estava livre
 					if(cont>tamPos && cont>=x){
 						tamPos=cont;
 						posBest=pos;
@@ -203,7 +203,7 @@ void alocarMemoria(int* part,int tamPart, int x,int* processo,int tpPos,int* con
 				*processo+=1;
 				alocou=true;
 				for(int j=0;j<x;j++){
-					part[posBest]=*processo;//é inserido os processos no vetor seguindo a posicao mais eficiente
+					part[posBest]=*processo;//Ã© inserido os processos no vetor seguindo a posicao mais eficiente
 					posBest++;
 				}
 			}else{//se o posBest continuar como 0 (assim como foi instanciado) e a primeira posicao nao for nula, entao significa que nao foi encontrado nenhuma posicao livre
